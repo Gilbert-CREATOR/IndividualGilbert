@@ -1,0 +1,102 @@
+{% extends "layouts/app.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+{% endblock %}
+
+{% block title %}
+    Inicio
+{% endblock %}
+
+{% block content %}
+<section id="inicio">
+    <!-- contenido del hero -->
+</section>
+<div class="pagina-inicio container">
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1 id="nombre">B&B</h1>
+        <h2>CAR WASH A DOMICILIO Y <span class="eco">ECO-FRIENDLY</span> PARA TU VEHÍCULO</h2>
+        <h2>Lavado y Encerado - Wash & Wax</h2>
+        <a href="{% url 'agendar_cita' %}" class="btn-primary">Agendar Cita</a>
+    </section>
+
+
+    <!-- INTRO -->
+    <section class="intro">
+        <h3>TE AYUDAMOS A MANTENER TU COCHE SIEMPRE LIMPIO</h3>
+        <p>En B&B Car Wash, nos especializamos en ofrecer servicios de lavado de coches a domicilio que son tanto convenientes como respetuosos con el medio ambiente. Nuestro equipo de profesionales capacitados utiliza productos ecológicos y técnicas avanzadas para garantizar que tu vehículo reciba el mejor cuidado posible sin dañar el planeta.</p>
+        <img src="{% static 'img/bmw.jpg' %}" alt="Car Wash Image 1" class="intro-img">
+    </section>
+
+
+    <!-- SERVICIOS -->
+    <section id="tarifa" class="servicios-section">
+    <h2>NUESTROS SERVICIOS</h2>
+    
+    <div class="servicios-grid">
+
+    {% for servicio in servicios %}
+        <div class="servicio-card">
+            <h3>{{ servicio.nombre }}</h3>
+
+            <p class="precio-line">
+                RD$ {{ servicio.precio }}
+            </p>
+
+            <p class="desc">
+                {{ servicio.descripcion }}
+            </p>
+
+            <a href="{% url 'agendar_cita' %}?servicio={{ servicio.id }}" class="btn-primary">
+                Agendar Cita
+            </a>
+        </div>
+    {% empty %}
+        <p>No hay servicios disponibles.</p>
+    {% endfor %}
+
+</div>
+
+</section>
+
+
+
+    <!-- SECCIÓN DEL CARRO BLANCO -->
+    <section class="hero-footer">
+        <div class="hero-footer__img-wrapper">
+            <img src="{% static 'img/ferrari.jpg' %}" alt="Auto blanco" class="hero-footer__img">
+        </div>
+
+        <div class="hero-footer__card">
+            <h3>¿Listo para tu lavado?</h3>
+            <p>Llámanos o agenda tu cita ahora. Servicio a domicilio y productos <span class="eco"> eco-friendly.</span></p>
+
+            <div id="Contacto" class="hero-footer__actions">
+                <a href="tel:+18494262623" class="btn-primary">Llamar</a>
+                <a href="{% url 'agendar_cita' %}" class="btn-secondary">Agendar</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- REDES -->
+    <section class="redes-section">
+        <h2>SÍGUENOS EN LAS REDES</h2>
+        <div class="redes">
+        <button> <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"> 
+        <img src="{% static 'img/facebook.svg' %}" alt="Facebook"> </a> </button>
+
+        <button> <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"> 
+        <img src="{% static 'img/instagram.svg' %}" alt="Instagram"> </a> </button>
+</div>
+    </section>
+
+    <p id="final">En B&B Car Wash, estamos comprometidos con la excelencia y la satisfacción del cliente. Permítenos cuidar de tu vehículo mientras tú te ocupas de tus actividades diarias.</p>
+    <h2>¡Gracias por elegir B&B Car Wash!</h2>
+
+</div>
+
+{% endblock %}
