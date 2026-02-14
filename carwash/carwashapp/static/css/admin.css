@@ -1,0 +1,43 @@
+.navbar-admin {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,10,0.75); /* fondo oscuro semi-transparente */
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    padding: 10px 20px;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 12px;
+}
+
+.navbar-admin a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+}
+
+.navbar-admin a:hover {
+    background: #ffffff;
+    color: #000000;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu li {
+    margin-left: 10px;
+}
+
+.navbar-brand a {
+    font-weight: bold;
+    font-size: 1.2em;
+}

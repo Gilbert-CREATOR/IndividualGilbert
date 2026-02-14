@@ -1,0 +1,127 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+
+{% block title %}Estadísticas Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/stats.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Estadísticas del sistema</h1>
+
+<!-- ==================== Citas por Estado ==================== -->
+<div class="chart-card">
+    <h3>Citas por Estado</h3>
+    <canvas id="citasEstadoChart"></canvas>
+</div>
+
+<!-- ==================== Ingresos por Mes ==================== -->
+<div class="chart-card">
+    <h3>Ingresos por Mes</h3>
+    <canvas id="ingresosMesChart"></canvas>
+</div>
+
+<!-- ==================== Servicios más Populares ==================== -->
+<div class="chart-card">
+    <h3>Servicios más Populares</h3>
+    <canvas id="serviciosPopChart"></canvas>
+</div>
+
+<!-- ==================== Citas por Día ==================== -->
+<div class="chart-card">
+    <h3>Citas por Día</h3>
+    <canvas id="citasDiaChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    /* ==================== Citas por Estado ==================== */
+    const ctxCitas = document.getElementById('citasEstadoChart').getContext('2d');
+    new Chart(ctxCitas, {
+        type: 'bar',
+        data: {
+            labels: JSON.parse('{{ estados|escapejs }}'),
+            datasets: [{
+                label: 'Citas por Estado',
+                data: JSON.parse('{{ totales_estado|escapejs }}'),
+                backgroundColor: ['#FF5722','#FFC107','#4CAF50']
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 1 }
+                }
+            }
+        }
+    });
+
+    /* ==================== Ingresos por Mes ==================== */
+    const ctxIngresos = document.getElementById('ingresosMesChart').getContext('2d');
+    new Chart(ctxIngresos, {
+        type: 'line',
+        data: {
+            labels: JSON.parse('{{ meses|escapejs }}'),
+            datasets: [{
+                label: 'Ingresos por Mes',
+                data: JSON.parse('{{ totales_ingresos|escapejs }}'),
+                backgroundColor: '#2196F3',
+                borderColor: '#2196F3',
+                fill: false,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    /* ==================== Servicios más Populares ==================== */
+    const ctxServicios = document.getElementById('serviciosPopChart').getContext('2d');
+    new Chart(ctxServicios, {
+        type: 'pie',
+        data: {
+            labels: JSON.parse('{{ nombres_servicios|escapejs }}'),
+            datasets: [{
+                label: 'Servicios más Populares',
+                data: JSON.parse('{{ totales_servicios|escapejs }}'),
+                backgroundColor: ['#FF9800','#FF5722','#FFC107','#4CAF50','#2196F3']
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    /* ==================== Citas por Día ==================== */
+    const ctxDia = document.getElementById('citasDiaChart').getContext('2d');
+    new Chart(ctxDia, {
+        type: 'bar',
+        data: {
+            labels: JSON.parse('{{ dias|escapejs }}'),
+            datasets: [{
+                label: 'Número de citas',
+                data: JSON.parse('{{ totales_dia|escapejs }}'),
+                backgroundColor: '#FF5722'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 1 }
+                }
+            }
+        }
+    });
+
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "layouts/app.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/' %}">
+{% endblock %}
+
+{% block title %}
+    Registro
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-right">
+    <div class="auth-card"
+    <h2>Datos de tu cuenta</h2>
+
+    {# Mensaje flash de Django, si los usas #}
+    {% if message %}
+    <div class="form-message">
+        {% for message in message %}
+        <p class="form-message form-message--{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Registrarse</button>
+    </form>
+</div>
+{% endblock %}

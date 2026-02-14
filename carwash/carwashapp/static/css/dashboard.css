@@ -1,0 +1,257 @@
+/* ===================== RESET BÁSICO ===================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ===================== NAVBAR DEL EMPLEADO ===================== */
+.navbar-empleado {
+    background: rgba(10,10,10,0.75);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 12px;
+}
+
+.navbar-empleado ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.navbar-empleado ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.navbar-empleado ul li a:hover {
+    background: #ffffff;
+    color: #000000;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+/* ===================== CONTENIDO GENERAL ===================== */
+body {
+    background-color: #0b0f14;
+    color: #ffffff;
+}
+
+.contenedor-dashboard {
+    padding: 30px 50px;
+}
+
+/* ===================== TARJETAS DE INFORMACIÓN ===================== */
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 55px;
+}
+
+.tarjeta {
+    background: rgba(0,0,0,0.6);
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.tarjeta:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255,255,255,0.5);
+}
+
+.tarjeta h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.tarjeta p {
+    font-size: 16px;
+    color: #cfcfcf;
+}
+
+/* ===================== TABLA DE VEHÍCULOS ===================== */
+.tabla-vehiculos {
+    margin-top: 40px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-vehiculos th {
+    background-color: rgba(10,10,10,0.75);
+    color: #FAFBF9;
+    padding: 12px;
+    text-align: left;
+}
+
+.tabla-vehiculos td {
+    padding: 12px;
+    background-color: rgba(0,0,0,0.6);
+    color: #FAFBF9;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.tabla-vehiculos tr:hover td {
+    background-color: rgba(255,255,255,0.1);
+}
+
+
+/* ===================== MENSAJES DE ÉXITO / ERROR ===================== */
+.messages .success,
+.messages .error {
+    background: rgba(255,255,255,0.1);
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+
+/* BOTONES */
+
+.boton-agregar{
+    background: transparent;
+    color: #ffffff;
+    padding: 8px 15px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block; 
+    margin-top: 5px;      
+}
+.boton-agregar:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+/*=======================================*/
+
+.btn-comfirmar {
+    background: transparent;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-comfirmar:hover {
+    background: #218838;
+}
+/*=======================================*/
+
+.btn-proceso{
+    background: transparent;
+    color: #212529;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-proceso:hover {
+    background: #e0a800;
+}
+/*=======================================*/
+.btn-finalizar{
+    background: transparent;
+    color: #ffffff;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-finalizar:hover {
+    background: #0069d9;
+}
+/*=======================================*/
+.btn-cancelar{
+    background: transparent;
+    color: #ffffff;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-cancelar:hover {
+    background: #c82333;
+}
+
+.btn-eliminar{
+    background: transparent;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-eliminar:hover {
+    background: #dc3545;
+}
+/*=======================================*/
+
+
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 1024px) {
+    .tabla-vehiculos th, .tabla-vehiculos td {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor-dashboard {
+        padding: 25px;
+    }
+
+    .tabla-vehiculos {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .contenedor-dashboard {
+        padding: 20px;
+    }
+}

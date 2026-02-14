@@ -1,0 +1,132 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+
+{% block title %}Perfil de {{ user.username }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="contenedor-dashboard">
+
+    <h1 class="titulo-seccion">Mi Perfil</h1>
+
+    <div class="tarjeta perfil-tarjeta">
+
+        <!-- HEADER DEL PERFIL -->
+        <div class="perfil-header">
+
+            <!-- FOTO DE PERFIL -->
+            <div class="foto-perfil">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% if user.perfil.foto_perfil %}
+                        <img
+                            id="profileImage"
+                            src="{{ user.perfil.foto_perfil.url }}"
+                            alt="Foto de perfil">
+                    {% else %}
+                        <img
+                            id="profileImage"
+                            src="{% static 'img/default-user.png' %}"
+                            alt="Foto por defecto">
+                    {% endif %}
+
+                    <label for="profilePhoto"
+                           class="btn-dashboard"
+                           style="margin-top:10px; display:inline-block;">
+                        Cambiar foto
+                    </label>
+
+                    <input
+                        type="file"
+                        id="profilePhoto"
+                        name="foto_perfil"
+                        accept="image/*">
+
+                    <button type="submit" class="btn-dashboard">
+                        Guardar Foto
+                    </button>
+                </form>
+            </div>
+
+            <!-- INFORMACIÓN DEL PERFIL -->
+            <div class="perfil-info">
+                <h2>{{ user.get_full_name|default:user.username }}</h2>
+
+                <p><strong>Usuario:</strong> {{ user.username }}</p>
+
+                <p>
+                    <strong>Registrado desde:</strong>
+                    {{ user.date_joined|date:"d M, Y" }}
+                    ({{ user.date_joined|timesince }} atrás)
+                </p>
+
+                <p><strong>Email:</strong> {{ user.email }}</p>
+
+                {% if user.perfil.telefono %}
+                    <p><strong>Teléfono:</strong> {{ user.perfil.telefono }}</p>
+                {% endif %}
+
+                {% if user.perfil.fecha_contratacion %}
+                    <p>
+                        <strong>Fecha de contratación:</strong>
+                        {{ user.perfil.fecha_contratacion|date:"d M, Y" }}
+                    </p>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <!-- BOTONES DE ACCIÓN -->
+        <div class="perfil-actions">
+            <a href="{% url 'logout' %}" class="btn-dashboard btn-danger">
+                Cerrar Sesión
+            </a>
+        </div>
+
+        <!-- CAMBIO DE CONTRASEÑA -->
+        {% if form %}
+        <div class="tarjeta cambio-contrasena">
+            <h3>Cambiar Contraseña</h3>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <p>
+                        {{ field.label_tag }}<br>
+                        {{ field }}
+                        {% if field.errors %}
+                            <small style="color:#ff6b6b;">
+                                {{ field.errors|striptags }}
+                            </small>
+                        {% endif %}
+                    </p>
+                {% endfor %}
+
+                <button type="submit"
+                        name="cambiar_contrasena"
+                        class="btn-dashboard">
+                    Guardar Contraseña
+                </button>
+            </form>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<!-- PREVIEW DE FOTO -->
+<script>
+document.getElementById('profilePhoto').addEventListener('change', function () {
+    const file = this.files[0];
+    if (file) {
+        document.getElementById('profileImage').src =
+            URL.createObjectURL(file);
+    }
+});
+</script>
+{% endblock %}

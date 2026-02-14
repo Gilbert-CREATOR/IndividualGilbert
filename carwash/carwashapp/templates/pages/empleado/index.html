@@ -1,0 +1,114 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block title %}
+Dashboard | Empleado
+{% endblock %}
+
+{% block content %}
+
+<div class="contenedor-dashboard">
+
+    <h2 class="titulo-seccion">Dashboard de Citas</h2>
+
+    <a href="{% url 'agendar_cita' %}" class="boton-agregar">+ Nueva cita</a>
+
+    <!-- Tarjeta con total de citas -->
+    <div class="tarjetas">
+        <div class="tarjeta">
+            <h3>Total de citas</h3>
+            <p>{{ citas|length }}</p>
+        </div>
+    </div>
+
+    {% if citas %}
+    <table class="tabla-vehiculos">
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Marca</th>       
+                <th>Modelo</th> 
+                <th>Servicio</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Estado</th>
+                <th>Correo enviado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cita in citas %}
+            <tr>
+                <td>{{ cita.nombre }}</td>
+                <td>{{ cita.telefono }}</td>
+                <td>{{ cita.email|default:"-" }}</td>
+                <td>{{ cita.marca.nombre|default:"-" }}</td>    
+                <td>{{ cita.modelo.nombre|default:"-" }}</td>
+                <td>{{ cita.servicio }}</td>
+                <td>{{ cita.fecha }}</td>
+                <td>{{ cita.hora }}</td>
+                <td>{{ cita.get_estado_display }}</td>
+                <td>
+                    {% if cita.correo_enviado %}
+                        ✅
+                    {% elif cita.estado == 'confirmada' and not cita.email %}
+                        ⚠️
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>
+                    <!-- Cambiar estados -->
+                    {% if cita.estado == 'pendiente' %}
+                    <form action="{% url 'cambiar_estado_cita' cita.id 'confirmada' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-comfirmar">Confirmar</button>
+                    </form>
+                    {% endif %}
+
+                    {% if cita.estado == 'confirmada' %}
+                    <form action="{% url 'cambiar_estado_cita' cita.id 'en_proceso' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-proceso">En Proceso</button>
+                    </form>
+                    {% endif %}
+
+                    {% if cita.puede_finalizar %}
+                    <form action="{% url 'cambiar_estado_cita' cita.id 'finalizada' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-finalizar">Finalizar</button>
+                    </form>
+                    {% endif %}
+
+                    {% if cita.estado != 'finalizada' %}
+                    <form action="{% url 'cambiar_estado_cita' cita.id 'cancelada' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-cancelar">Cancelar</button>
+                    </form>
+                    {% endif %}
+
+                    <!-- Eliminar cita -->
+                    <form action="{% url 'eliminar_cita' cita.id %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-eliminar" onclick="return confirm('¿Seguro que quieres eliminar esta cita?')">
+                            Eliminar
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No hay citas registradas</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

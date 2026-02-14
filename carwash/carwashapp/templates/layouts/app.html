@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CarWash app{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    
+    {% if user_role == "admin" %}
+        {% include 'components/navbar_admin.html' %}
+
+    {% elif user_role == "empleado" %}
+        {% include 'components/navbar_empleado.html' %}
+
+    {% else %}
+        {% include 'components/navbar.html' %}
+    {% endif %}
+
+    <main>
+        {% block content %} {% endblock %}
+    </main>
+
+    {% include 'components/footer.html' %}
+</body>
+</html>

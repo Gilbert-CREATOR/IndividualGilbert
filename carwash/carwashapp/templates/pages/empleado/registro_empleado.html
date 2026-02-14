@@ -1,0 +1,62 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+
+{% block title %}Registro{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login_registro.css' %}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<main class="log_regis-page">
+  <section class="log_regis-container">
+    <h1>Crear cuenta</h1>
+    
+    {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+    <form method="post" action="{% url 'registro' %}" class="formulario">
+      {% csrf_token %}
+
+      <div class="username">
+        <input type="text" name="username" required>
+        <label>Usuario</label>
+        <span></span>
+      </div>
+
+      <div class="username">
+        <input type="email" name="email" required>
+        <label>Correo electrónico</label>
+        <span></span>
+      </div>
+
+      <div class="username">
+        <input type="password" name="password1" required>
+        <label>Contraseña</label>
+        <span></span>
+      </div>
+
+      <div class="username">
+        <input type="password" name="password2" required>
+        <label>Confirmar contraseña</label>
+        <span></span>
+      </div>
+
+      <input type="submit" value="Registrarse">
+
+      <div class="registrarse">
+        ¿Ya tienes cuenta?
+        <a href="{% url 'login' %}">Inicia sesión</a>
+      </div>
+    </form>
+  </section>
+</main>
+{% endblock %}

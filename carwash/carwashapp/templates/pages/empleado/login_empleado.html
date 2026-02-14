@@ -1,0 +1,61 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login_registro.css' %}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<main class="log_regis-page">
+  <section class="log_regis-container">
+    <h1>Iniciar sesión</h1>
+
+    {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+    <form method="post" action="{% url 'login' %}" class="formulario">
+      {% csrf_token %}
+
+      <div class="username">
+       <input type="text" name="username" required>
+        <label>Usuario</label>
+        <span></span>
+      </div>
+
+      <div class="username">
+        <input type="password" name="password" required>
+        <label>Contraseña</label>
+        <span></span>
+      </div>
+
+      <div class="recordar">
+        <a href="#">¿Olvidaste la contraseña?</a>
+      </div>
+
+      <input type="submit" value="Iniciar sesión">
+
+
+      <div class="divisor">
+        <span>O continúa con</span>
+      </div>
+
+      <div class="login-social">
+        <a href="https://accounts.google.com/v3/signin/identifier?continue=https://accounts.google.com/signin/chrome/sync/finish?est%3DAEmG5eAXvzWp7k28KJ1G8Bs-BwrFG3ULxaJIRucfwq4kkBRV06GqQM5AbE1e-pNuFBIn84JjNcP8kM_pUrOs8H0%26continue%3Dhttps://www.google.com/&ssp=1&theme=mn&flowName=GlifDesktopChromeSync&dsh=S-1709946799:1768414450431532" class="boton-social btn-google">Google</a>
+        <a href="https://www.facebook.com/" class="boton-social btn-facebook">Facebook</a>
+        <a href="https://x.com/?lang=es" class="boton-social btn-twitter">Twitter</a>
+      </div>
+
+    </form>
+  </section>
+</main>
+{% endblock %} 

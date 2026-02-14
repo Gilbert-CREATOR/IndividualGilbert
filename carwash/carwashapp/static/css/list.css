@@ -1,0 +1,113 @@
+/* =========================
+   CONTENEDOR GENERAL
+========================= */
+body {
+    background-color: #0b0f14;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}   
+
+main {
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    background: #0b0f14; /* mismo color de fondo que el body */
+    color: #ffffff;
+}
+
+/* =========================
+   TITULO
+========================= */
+h1 {
+    text-align: left;
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+/* =========================
+   TABLA
+========================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(10,10,10,0.75);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+th {
+    background-color: rgba(10,10,10,0.85);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+tr:hover {
+    background-color: rgba(255,255,255,0.05);
+}
+
+td a {
+    color: #ffffff; /* links en blanco */
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+td a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+/* =========================
+   BOTON AGREGAR
+========================= */
+a.btn-agregar {
+    display: inline-block;
+    background: transparent;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+a.btn-agregar:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        display: none;
+    }
+
+    td {
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        font-weight: 600;
+        color: #cfcfcf;
+    }
+}

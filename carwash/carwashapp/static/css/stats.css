@@ -1,0 +1,122 @@
+/* =========================
+   RESET Y TIPOGRAFÍA
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #0b0f14;
+    color: #ffffff;
+}
+
+/* =========================
+   TÍTULO PRINCIPAL
+========================= */
+h1 {
+    text-align: left;
+    font-size: 36px;
+    margin: 30px ;
+}
+
+/* =========================
+   TARJETAS DE CHARTS
+========================= */
+.chart-card {
+    background: rgba(10,10,10,0.75);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-radius: 24px;
+    padding: 30px 25px;
+    margin: 30px auto;
+    border: 1px solid rgba(255,255,255,0.25);
+    max-width: 900px;
+    color: #ffffff;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+}
+
+.chart-card:hover {
+    transform: translateY(-5px);
+}
+
+.chart-card h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+/* =========================
+   ESTILOS DE LOS CHARTS
+========================= */
+canvas {
+    width: 100% !important;
+    max-height: 400px;
+}
+
+/* =========================
+   BOTONES (si agregas filtros)
+========================= */
+.btn-chart {
+    display: inline-block;
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.6);
+    padding: 10px 20px;
+    border-radius: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+}
+
+.btn-chart:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    .chart-card {
+        padding: 25px 20px;
+    }
+
+    canvas {
+        max-height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .chart-card {
+        padding: 20px 15px;
+    }
+
+    canvas {
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    .chart-card {
+        padding: 15px 10px;
+        margin: 20px 10px;
+    }
+
+    canvas {
+        max-height: 250px;
+    }
+}

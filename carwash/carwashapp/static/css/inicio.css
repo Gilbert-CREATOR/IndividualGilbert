@@ -1,0 +1,289 @@
+/* =========================
+   ESTILOS GENERALES
+========================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #0b0f14;
+    color: #ffffff;
+}
+
+.container {
+    max-width: 1400px;
+    margin: auto;
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+    min-height: 90vh;
+    background:
+        linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.85)),
+        url("../img/negro.jpg") center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 40px;
+}
+
+.hero {
+    background: 
+    linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.85)),
+    url("../img/negro.jpg") center/cover no-repeat fixed;
+    min-height: 100vh;
+}
+
+
+
+.hero h1 {
+    font-size: 72px;
+    font-weight: 800;
+    letter-spacing: 6px;
+    margin-bottom: 10px;
+}
+
+.hero h2 {
+    font-size: 20px;
+    font-weight: 400;
+    max-width: 650px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.hero .btn-primary {
+    width: fit-content;
+    margin-top: 30px;
+}
+
+/* =========================
+   SECCIONES FLOTANTES
+========================= */
+.intro,
+.servicios-section,
+.hero-footer {
+    background: rgba(10,10,10,0.75);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 24px;
+    padding: 60px 50px;
+    margin: 80px auto;
+    width: 90%;
+}
+
+/* =========================
+   INTRO
+========================= */
+.intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.intro h3 {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.intro p {
+    color: #d1d1d1;
+    line-height: 1.6;
+}
+
+.intro-img {
+    width: 100%;
+    border-radius: 18px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* RESPIRAR al pasar el mouse */
+.intro-img:hover {
+    animation: respirar 3s ease-in-out infinite;
+}
+
+/* KEYFRAMES para respirar */
+@keyframes respirar {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* =========================
+   SERVICIOS
+========================= */
+.servicios-section h2 {
+    font-size: 36px;
+    margin-bottom: 50px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+/* CARD */
+.servicio-card {
+    background: rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 30px;
+    transition: all 0.35s ease;
+}
+
+.servicio-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(255,255,255,0.5);
+}
+
+.servicio-card h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.precio-line {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.desc {
+    font-size: 14px;
+    color: #cfcfcf;
+    margin-bottom: 20px;
+}
+
+/* =========================
+   BOTONES
+========================= */
+.btn-primary {
+    background: transparent;
+    color: #ffffff;
+    padding: 12px 22px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.6);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,0.1);
+    color: #ffffff;
+    padding: 12px 22px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+/* =========================
+   HERO FOOTER
+========================= */
+.hero-footer {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.hero-footer__img {
+    width: 100%;
+    border-radius: 22px;
+    object-fit: cover; 
+    animation: respirar 6s ease-in-out infinite;
+}
+
+@keyframes respirar {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03); /* aumenta 3% */
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.hero-footer__card h3 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    
+}
+
+.hero-footer__card p {
+    color: #d0d0d0;
+    margin-bottom: 25px;
+}
+
+/* =========================
+   REDES
+========================= */
+.redes-section {
+    text-align: center;
+    margin: 100px 0 40px;
+}
+
+.redes img {
+    width: 28px;
+    margin: 0 12px;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.redes img:hover {
+    opacity: 1;
+}
+
+/* =========================
+   UTILIDADES
+========================= */
+.eco {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+    .intro,
+    .hero-footer {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 60px 25px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+}

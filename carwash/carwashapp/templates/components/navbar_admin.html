@@ -1,0 +1,5 @@
+<nav class="menu_admin">
+    {% for item in menu_admin %}
+        <a href="{{ item.url }}">{{ item.name }}</a>
+    {% endfor %}
+</nav>

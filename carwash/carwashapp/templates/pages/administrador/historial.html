@@ -1,0 +1,104 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+
+{% block title %}Historial Completo de Citas{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/historial.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Historial de Citas del Negocio</h1>
+
+<!-- FILTROS -->
+<form method="GET" class="row g-3 mb-4">
+    <div class="col-md-3">
+        <input type="date" name="fecha_inicio" class="form-control" value="{{ fecha_inicio }}">
+    </div>
+    <div class="col-md-3">
+        <input type="date" name="fecha_fin" class="form-control" value="{{ fecha_fin }}">
+    </div>
+    <div class="col-md-3">
+        <select name="estado" class="form-select">
+            <option value="">Todos los estados</option>
+            <option value="pendiente" {% if estado == 'pendiente' %}selected{% endif %}>Pendiente</option>
+            <option value="completada" {% if estado == 'completada' %}selected{% endif %}>Completada</option>
+            <option value="cancelada" {% if estado == 'cancelada' %}selected{% endif %}>Cancelada</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select name="servicio" class="form-select">
+            <option value="">Todos los servicios</option>
+            {% for serv in servicios %}
+            <option value="{{ serv.id }}" {% if servicio_id == serv.id|stringformat:"s" %}selected{% endif %}>
+                {{ serv.nombre }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-12 mt-2">
+        <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+    </div>
+</form>
+
+<!-- TABLA -->
+<div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Fecha</th>
+                <th>Servicio</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cita in page_obj %}
+            <tr>
+                <td>{{ cita.fecha }}</td>
+                <td>{{ cita.servicio.nombre }}</td>
+                <td>{{ cita.marca.nombre }}</td>
+                <td>{{ cita.modelo.nombre }}</td>
+                <td>
+                    <span class="badge 
+                        {% if cita.estado == 'pendiente' %} bg-warning
+                        {% elif cita.estado == 'completada' %} bg-success
+                        {% elif cita.estado == 'cancelada' %} bg-danger
+                        {% else %} bg-secondary
+                        {% endif %}
+                    ">
+                        {{ cita.estado }}
+                    </span>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No hay citas registradas.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- PAGINACIÓN -->
+<div class="d-flex justify-content-center mt-4">
+    <nav>
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            </li>
+            {% endif %}
+            <li class="page-item active">
+                <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+            </li>
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

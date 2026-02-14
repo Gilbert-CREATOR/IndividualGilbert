@@ -1,0 +1,61 @@
+/* ===========================
+   Dashboard Administrador
+=========================== */
+/* ===== Estilos generales ===== */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #0B0F14;
+    color: #ffffff;
+    padding: 20px;
+}
+
+/* ===== Botones ===== */
+.btn-primary,
+.btn-danger,
+.btn-agregar {
+    display: inline-block;
+    background: transparent;
+    color: #ffffff;
+    padding: 8px 15px;
+    margin: 10px 0;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-danger:hover,
+.btn-agregar:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+/* ===== Tabla ===== */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.table th, .table td {
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px;
+    text-align: left;
+}
+
+.table th {
+    background-color: rgba(10,10,10,0.75);
+    color: #ffffff;
+}
+
+.table tr:nth-child(even) {
+    background-color: rgba(0,0,0,0.6);
+}
+
+.table tr:hover {
+    background-color: rgba(255,255,255,0.1);
+}

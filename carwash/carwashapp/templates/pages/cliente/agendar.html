@@ -1,0 +1,168 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+
+{% block title %}Agendar Cita{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/citas.css' %}">
+<link rel="stylesheet" href="{% static 'css/agendar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Agendar Cita</h1>
+  <p>Taller de Auto Detallado</p>
+
+  <!-- ERRORES DEL FORMULARIO -->
+  {% if form.errors %}
+    <div class="form-errors">
+      {% for field in form %}
+        {% for error in field.errors %}
+          <p>{{ field.label }}: {{ error }}</p>
+        {% endfor %}
+      {% endfor %}
+      {% for error in form.non_field_errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- SERVICIOS -->
+  <div class="servicios-grid">
+    {% for servicio in servicios %}
+      <div class="servicio-card">
+        <h3>{{ servicio.nombre }}</h3>
+        <p class="precio-line">RD$ {{ servicio.precio }}</p>
+        <p class="desc">{{ servicio.descripcion }}</p>
+
+        <label class="select-servicio">
+          <input
+            type="radio"
+            name="servicio"
+            form="form-cita"
+            value="{{ servicio.id }}"
+            {% if form.servicio.value|stringformat:"s" == servicio.id|stringformat:"s" %}checked{% endif %}
+            required
+          >
+          Seleccionar
+        </label>
+      </div>
+    {% empty %}
+      <p>No hay servicios disponibles.</p>
+    {% endfor %}
+  </div>
+
+  <!-- FORMULARIO -->
+  <form method="post" id="form-cita" action="{% url 'agendar_cita' %}">
+    {% csrf_token %}
+
+    <div class="field">
+      <label>Marca</label>
+      <input type="text" id="marca_input" placeholder="Ingresa la marca de tu vehiculo" autocomplete="off">
+      <input type="hidden" name="marca" id="marca_id" value="{{ request.POST.marca }}">
+      <ul id="marca_results" class="autocomplete-list"></ul>
+    </div>
+
+    <div class="field">
+      <label>Modelo</label>
+      <input type="text" id="modelo_input" placeholder="Ingresa el modelo de tu vehiculo" autocomplete="off">
+      <input type="hidden" name="modelo" id="modelo_id" value="{{ request.POST.modelo }}">
+      <ul id="modelo_results" class="autocomplete-list"></ul>
+    </div>
+
+    <div class="form-group">
+      {{ form.nombre.label_tag }}
+      {{ form.nombre }}
+    </div>
+
+    <div class="form-group">
+      {{ form.telefono.label_tag }}
+      {{ form.telefono }}
+    </div>
+
+    <div class="form-group">
+      {{ form.email.label_tag }}
+      {{ form.email }}
+    </div>
+
+    <div class="form-group">
+      {{ form.fecha.label_tag }}
+      {{ form.fecha }}
+    </div>
+
+    <div class="form-group">
+      {{ form.hora.label_tag }}
+      {{ form.hora }}
+    </div>
+
+    <button type="submit" class="btn-confirmar">Confirmar cita</button>
+  </form>
+
+  <div class="footer-note">
+    Te contactaremos para confirmar disponibilidad
+  </div>
+</div>
+
+<script>
+const marcaInput = document.getElementById('marca_input');
+const marcaResults = document.getElementById('marca_results');
+const marcaIdInput = document.getElementById('marca_id');
+
+const modeloInput = document.getElementById('modelo_input');
+const modeloResults = document.getElementById('modelo_results');
+const modeloIdInput = document.getElementById('modelo_id');
+
+let marcaSeleccionada = marcaIdInput.value || null;
+if (marcaSeleccionada) modeloInput.disabled = false;
+
+// 🔍 Buscar marcas
+marcaInput.addEventListener('input', async () => {
+  const q = marcaInput.value.trim();
+  marcaResults.innerHTML = '';
+  marcaIdInput.value = '';
+  modeloInput.value = '';
+  modeloInput.disabled = true;
+
+  if (q.length < 2) return;
+
+  const res = await fetch(`/api/marcas/?q=${q}`);
+  const data = await res.json();
+
+  data.forEach(marca => {
+    const li = document.createElement('li');
+    li.textContent = marca.nombre;
+    li.onclick = () => {
+      marcaInput.value = marca.nombre;
+      marcaIdInput.value = marca.id;
+      marcaSeleccionada = marca.id;
+      marcaResults.innerHTML = '';
+      modeloInput.disabled = false;
+    };
+    marcaResults.appendChild(li);
+  });
+});
+
+// 🔍 Buscar modelos
+modeloInput.addEventListener('input', async () => {
+  const q = modeloInput.value.trim();
+  modeloResults.innerHTML = '';
+  modeloIdInput.value = '';
+
+  if (!marcaSeleccionada || q.length < 2) return;
+
+  const res = await fetch(`/api/modelos/?marca_id=${marcaSeleccionada}&q=${q}`);
+  const data = await res.json();
+
+  data.forEach(modelo => {
+    const li = document.createElement('li');
+    li.textContent = modelo.nombre;
+    li.onclick = () => {
+      modeloInput.value = modelo.nombre;
+      modeloIdInput.value = modelo.id;
+      modeloResults.innerHTML = '';
+    };
+    modeloResults.appendChild(li);
+  });
+});
+</script>
+{% endblock %}
